@@ -1,0 +1,17 @@
+# Global Application Configuration
+application:
+  name: "Investment Company Classifier"
+  version: "1.0.0"
+  description: "Classify companies based on investment criteria"
+
+# Data Source Configuration
+data_sources:
+  input_base_path: "data/input/" # From project directory
+  output_base_path: "data/output/" # From project directory
+  input_filename: "company-dataset.csv" # Customize to your file
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file_path: "logs/classifier.log"
+  enable_console_output: true

@@ -1,0 +1,39 @@
+[
+  {
+    "rule_id": "founding_age",
+    "name": "Company Founded in Last 5 Years",
+    "field": "Founded Year",
+    "type": "date",
+    "comparator": "within_range",
+    "parameters": {
+      "years": 5,
+      "reference_date": "current_date"
+    },
+    "weight": 1.0,
+    "critical": true
+  },
+  {
+    "rule_id": "employee_count",
+    "name": "Exact Employee Count",
+    "type": "numeric",
+    "comparator": "exact",
+    "parameters": {
+      "value": 2060,
+      "tolerance": 0
+    },
+    "weight": 0.8,
+    "critical": false
+  },
+  {
+    "rule_id": "employee_count",
+    "name": "Exact Employee Count",
+    "type": "numeric",
+    "comparator": "range",
+    "parameters": {
+      "min": 20,
+      "max": 60
+    },
+    "weight": 0.8,
+    "critical": false
+  }
+]
