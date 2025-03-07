@@ -7,6 +7,9 @@ This file will set **most** of the important parameters in the application.
 > This repo comes with a pre-built `config.yaml`,
 > you can find it [here](../config.yaml).
 
+> [!IMPORTANT]
+> Don't forget to add your input/output directory, and to add your dataset!
+
 ## Parameters' definition
 
 Here's a breakdown of the parameters:

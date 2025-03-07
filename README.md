@@ -13,19 +13,19 @@ This project only uses:
 Therefore, it's possible to use a local `python environment` and, run:
 
 ```shell
-    python main.py
+python main.py
 ```
 
 To create the `python environment` you can run:
 
 ```shell
-    python -m venv ./.venv
+python -m venv ./.venv
 ```
 
 And then the following, to activate it:
 
 ```shell
-    source ./.venv/bin/activate
+source ./.venv/bin/activate
 ```
 
 Also, feel free to use any other environment manager, e.g.: `pyenv` or any other
@@ -38,11 +38,14 @@ having to rebuild the container and copying the files all over again.
 To run on Docker:
 
 ```shell
-    docker compose up
+docker compose up
 ```
 
 The above command will run the script once and save the file on your local
 directory, since the entire directory is being emulated inside the `container`.
+
+> [!IMPORTANT]
+> Don't forget to add your input/output directory, and to add your dataset!
 
 ## How to configure this project
 
