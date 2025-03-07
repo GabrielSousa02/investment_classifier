@@ -26,3 +26,27 @@ class InsufficientRulesException(BaseProjectException):
             *args,
             **kwargs,
         )
+
+
+class InvalidOperationException(BaseProjectException):
+    def __init__(self, message, *args, **kwargs):
+        super().__init__(
+            error_code="INVALID_OPERATION", message=message, *args, **kwargs
+        )
+
+
+class InvalidClassificationEngineException(BaseProjectException):
+    def __init__(self, message, *args, **kwargs):
+        super().__init__(
+            error_code="INVALID_CLASSIFICATION_ENGINE",
+            message=message,
+            *args,
+            **kwargs,
+        )
+
+
+class EmptyDatasetException(BaseProjectException):
+    def __init__(self, message, *args, **kwargs):
+        super().__init__(
+            error_code="EMPTY_DATASET", message=message, *args, **kwargs
+        )

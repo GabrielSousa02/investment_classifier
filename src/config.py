@@ -23,21 +23,19 @@ class ConfigManager:
         return cls._instance
 
     def _initialize(self):
-        """Initialize the class
-        - Load configuration
-        - Setup logging
-        - Validate critical configuration
-        """
         self._load_config()
         self._setup_logging()
         self._validate_config()
 
     def _load_config(self):
-        """Load configuration from sources
-        Priority:
+        """
+        Load configuration from sources
+        This is the priority:
             1. Environment variable
             2. Default config file
             3. Raise exception
+
+        :return: None
         """
 
         env_config_path = os.environ.get("CLASSIFIER_CONFIG_FILE")
@@ -65,10 +63,12 @@ class ConfigManager:
     def _setup_logging(self):
         """
         Configure logging based on config settings
+
+        :return: None
         """
         log_config = self._config.get("logging", {})
         log_level = getattr(logging, log_config.get("level", "INFO").upper())
-        log_file = log_config.get("file_path", "app.log")
+        log_file = log_config.get("file_path", "logs/app.log")
 
         # Ensure log directory exists
         os.makedirs(os.path.dirname(log_file), exist_ok=True)
@@ -85,12 +85,14 @@ class ConfigManager:
         """
         Perform critical configuration validation
         Check for required configuration sections and values
+
+        :return: None
         """
+
         required_sections = [
             "data_sources.input_base_path",
             "data_sources.output_base_path",
             "data_sources.input_filename",
-            "investor_rules",
         ]
 
         for section in required_sections:
@@ -107,13 +109,11 @@ class ConfigManager:
         """
         Retrieve nested configuration values
 
-        Args:
-            key (str): Dot-separated configuration key
-            default: Value to return if key is not found
-
-        Returns:
-            Configuration value or default
+        :param key: Dot-separated configuration key
+        :param default: Value to return if key is not found
+        :return: Configuration value or default
         """
+
         if not self._config:
             raise ImproperlyConfiguredException(
                 "Configuration not loaded", parameter_name=key
@@ -136,6 +136,8 @@ class ConfigManager:
         """
         Reload configuration from file
         Useful for dynamic configuration updates
+
+        :return: None
         """
         self._load_config()
         self._setup_logging()

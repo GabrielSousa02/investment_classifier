@@ -3,15 +3,16 @@ application:
   name: "Investment Company Classifier"
   version: "1.0.0"
   description: "Classify companies based on investment criteria"
+  classification_engine: "dynamic"
+  data_sanitizing_strategy: 1
 
 # Data Source Configuration
 data_sources:
-  input_base_path: "data/input/" # From project directory
-  output_base_path: "data/output/" # From project directory
-  input_filename: "company-dataset.csv" # Customize to your file
+  input_base_path: "data/input/"
+  output_base_path: "data/output/"
+  input_filename: "company-dataset.csv"
 
 # Logging Configuration
 logging:
   level: "INFO"
   file_path: "logs/classifier.log"
-  enable_console_output: true

@@ -1,0 +1,42 @@
+# rules.yaml
+rules:
+  - id: "founding_age"
+    name: "Company Founded in Last 5 Years"
+    parameters:
+      type: "date"
+      operator: "less_equal"
+      value: 5
+      reference_date: "current_year"
+      field: "Founded Year"
+  - id: "total_employees_range"
+    name: "Range of employees"
+    parameters:
+      type: "numeric"
+      operator: "range"
+      min: 20
+      max: 60
+      field: "Total Employees"
+  - id: "min_usa_employees"
+    name: "Minimum of employees in USA"
+    parameters:
+      type: "percentage"
+      operator: "greater_equal"
+      value: 0.75
+      reference: "Total Employees"
+      field: "Employee Locations"
+      locator: "USA"
+  - id: "employee_growth_stability"
+    name: "Employee growth stability"
+    parameters:
+      type: "delta"
+      operator: "range"
+      min: 0.0
+      max: 0.10
+      ref_unit: 1
+      series:
+        - field: "Employee Growth 2Y (%)"
+          unit_span: 2
+        - field: "Employee Growth 1Y (%)"
+          unit_span: 1
+        - field: "Employee Growth 6M (%)"
+          unit_span: 0.5

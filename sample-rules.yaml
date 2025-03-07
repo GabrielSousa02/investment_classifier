@@ -1,0 +1,86 @@
+# sample-rules.yaml
+rules:
+  # DATE RULES
+  - id: "founding_age"
+    name: "Company Founded in Last 5 Years"
+    parameters:
+      type: "date"
+      operator: "less_equal"
+      value: 5
+      reference_date: "current_year"
+      field: "Founded Year"
+  - id: "founding_before_than"
+    name: "Company Founded Before 2023"
+    parameters:
+      type: "date"
+      operator: "greater_equal"
+      year: 2023
+      field: "Founded Year"
+  - id: "founding_year_within_period"
+    name: "Company Founded Between Years"
+    parameters:
+      type: "date"
+      operator: "range"
+      min: 2019
+      max: 2022
+      field: "Founded Year"
+
+  # NUMERIC RULES
+  - id: "employee_count"
+    name: "Exact Employee Count"
+    parameters:
+      type: "numeric"
+      operator: "exact"
+      value: 5
+      field: "Total Employees"
+  - id: "total_employees_range"
+    name: "Range of employees"
+    parameters:
+      type: "numeric"
+      operator: "range"
+      min: 20
+      max: 60
+      field: "Total Employees"
+
+  # PERCENTAGE RULES
+  - id: "min_usa_employees"
+    name: "Minimum of employees in USA"
+    parameters:
+      type: "percentage"
+      operator: "greater_equal"
+      value: 0.75
+      reference: "Total Employees"
+      field: "Employee Locations"
+      locator: "USA"
+
+  # DELTA RULES
+  - id: "min_usa_employees"
+  - id: "employee_growth_stability"
+    name: "Employee growth stability"
+    parameters:
+      type: "delta"
+      operator: "range"
+      min: 0.0
+      max: 0.10
+      ref_unit: 1
+      series:
+        - field: "Employee Growth 2Y (%)"
+          unit_span: 2
+        - field: "Employee Growth 1Y (%)"
+          unit_span: 1
+        - field: "Employee Growth 6M (%)"
+          unit_span: 0.5
+  - id: "employee_growth_stability"
+    name: "Employee growth stability"
+    parameters:
+      type: "delta"
+      operator: "less_equal"
+      value: 0.05
+      ref_unit: 1
+      series:
+        - field: "Employee Growth 2Y (%)"
+          unit_span: 2
+        - field: "Employee Growth 1Y (%)"
+          unit_span: 1
+        - field: "Employee Growth 6M (%)"
+          unit_span: 0.5

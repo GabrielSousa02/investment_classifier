@@ -1,0 +1,12 @@
+services:
+  classifier:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/proj
+    command: >
+      sh -c "python main.py"
+    env_file: ".env"

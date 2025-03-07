@@ -7,12 +7,9 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-import pandas as pd
-
 from src.classifier import ClassificationEngine
 from src.config import config
 from src.data_loader import DataLoader
-from src.rules_engine import StaticRulesEngine
 
 
 def main():
@@ -24,41 +21,44 @@ def main():
 
     # Get configuration params
     logger.info("Loading configuration data...")
+
+    data_sanitizing_strategy = config.get(
+        "application.data_sanitizing_strategy"
+    )
+
+    classification_engine = (
+        config.get("application.classification_engine") or "static"
+    )
+
     base_dir = str(Path(__file__).cwd()) + "/"
-    input_base_path = base_dir + config.get("data_sources.input_base_path")
-    output_base_path = base_dir + config.get("data_sources.output_base_path")
+    input_base_path = base_dir + config.get(
+        "data_sources.input_base_path", "data/input/"
+    )
+    output_base_path = base_dir + config.get(
+        "data_sources.output_base_path", "data/output/"
+    )
     input_filename = config.get("data_sources.input_filename")
 
     # Load data
     logger.info("Loading dataset...")
     logger.info(f"Dataset name: {input_filename}...")
-    data_loader = DataLoader()
+    data_loader = DataLoader(data_sanitizing_strategy)
     companies_df = data_loader.load_companies(
         f"{input_base_path}{input_filename}"
     )
 
     # Initialize classifier
-    logger.info("Creating Rules engine...")
-    rules_engine = StaticRulesEngine()
     logger.info("Creating Classifier engine...")
-    classifier = ClassificationEngine(rules_engine)
+    classifier = ClassificationEngine()
 
     # Classify companies
     logger.info("Classification initiated...")
-    results = []
-    for _, company in companies_df.iterrows():
-        classification = classifier.classify_company(company)
-        results.append(
-            {
-                **company.to_dict(),
-                "is_interesting": classification["is_interesting"],
-            }
-        )
+    logger.info(f"Engine selected: {classification_engine}")
+    results_df = classifier.classify(classification_engine, companies_df)
 
     # Convert to DataFrame and save
     logger.info("Classification completed...")
     logger.info("Saving results...")
-    results_df = pd.DataFrame(results)
     filename = (
         "parsed"
         + "_"
