@@ -1,6 +1,15 @@
 # Company Classifier
 
-## How to run this project
+## Motivation
+
+This is a project to classify companies based on their financial data.
+
+## Contributing
+
+No contribution is needed at the moment.
+
+## Usage
+## Quick Start
 
 This project only uses:
 - python -> 3.11
